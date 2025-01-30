@@ -1,6 +1,6 @@
 VERSION 6
 BEGIN SCHEMATIC
-    BEGIN ATTR DeviceFamilyName "spartan3a"
+    BEGIN ATTR DeviceFamilyName "virtex2p"
         DELETE all:0
         EDITNAME all:0
         EDITTRAIT all:0
@@ -8,12 +8,7 @@ BEGIN SCHEMATIC
     BEGIN NETLIST
         SIGNAL firstword
         SIGNAL lastword
-        BEGIN SIGNAL XLXN_4(7:0)
-        END SIGNAL
         SIGNAL clk
-        SIGNAL XLXN_7
-        SIGNAL XLXN_8
-        SIGNAL XLXN_9
         SIGNAL XLXN_10
         SIGNAL XLXN_11
         SIGNAL XLXN_12
@@ -24,37 +19,17 @@ BEGIN SCHEMATIC
         SIGNAL XLXN_18
         SIGNAL fiforead
         SIGNAL waddr(7:0)
-        SIGNAL XLXN_22(0:0)
-        SIGNAL XLXN_19
         SIGNAL XLXN_24
         SIGNAL valid_data
-        SIGNAL XLXN_27(7:0)
-        SIGNAL XLXN_28(7:0)
-        SIGNAL XLXN_30(7:0)
-        SIGNAL XLXN_31(7:0)
-        SIGNAL XLXN_32(7:0)
-        SIGNAL XLXN_33
+        SIGNAL raddr(7:0)
         SIGNAL rst
-        SIGNAL XLXN_36
-        SIGNAL XLXN_37
-        SIGNAL XLXN_38
-        SIGNAL XLXN_39
-        SIGNAL XLXN_40
-        SIGNAL XLXN_41
-        SIGNAL XLXN_42
-        SIGNAL XLXN_44
         SIGNAL XLXN_45
         SIGNAL in_fifo(71:0)
         SIGNAL drop_pkt
-        SIGNAL XLXN_51
         SIGNAL XLXN_52
         SIGNAL in_fifo0(71:0)
-        SIGNAL XLXN_54(71:0)
-        SIGNAL XLXN_57
-        SIGNAL XLXN_58
-        SIGNAL XLXN_59
-        SIGNAL XLXN_60(7:0)
         SIGNAL out_fifo(71:0)
+        SIGNAL XLXN_64
         PORT Input firstword
         PORT Input lastword
         PORT Input clk
@@ -196,19 +171,18 @@ BEGIN SCHEMATIC
             LINE N 96 -64 32 -64 
         END BLOCKDEF
         BEGIN BLOCKDEF dual_port_mem_72bit
-            TIMESTAMP 2025 1 29 5 29 51
-            RECTANGLE N 32 32 544 576 
+            TIMESTAMP 2025 1 30 6 11 0
+            RECTANGLE N 32 0 256 496 
+            BEGIN LINE W 0 48 32 48 
+            END LINE
             BEGIN LINE W 0 80 32 80 
             END LINE
-            BEGIN LINE W 0 112 32 112 
+            LINE N 0 112 32 112 
+            LINE N 0 240 32 240 
+            BEGIN LINE W 0 272 32 272 
             END LINE
-            BEGIN LINE W 0 208 32 208 
-            END LINE
-            LINE N 0 272 32 272 
-            BEGIN LINE W 0 336 32 336 
-            END LINE
-            LINE N 0 528 32 528 
-            BEGIN LINE W 576 336 544 336 
+            LINE N 0 464 32 464 
+            BEGIN LINE W 256 272 288 272 
             END LINE
         END BLOCKDEF
         BEGIN BLOCK XLXI_1 fd
@@ -241,21 +215,21 @@ BEGIN SCHEMATIC
         BEGIN BLOCK XLXI_7 fd
             PIN C clk
             PIN D fifowrite
-            PIN Q XLXN_22(0:0)
+            PIN Q XLXN_64
         END BLOCK
         BEGIN BLOCK XLXI_8 comp8
             PIN A(7:0) waddr(7:0)
-            PIN B(7:0) XLXN_32(7:0)
+            PIN B(7:0) raddr(7:0)
             PIN EQ XLXN_17
         END BLOCK
         BEGIN BLOCK XLXI_9 comp8
-            PIN A(7:0) XLXN_32(7:0)
+            PIN A(7:0) raddr(7:0)
             PIN B(7:0) XLXN_16(7:0)
             PIN EQ XLXN_18
         END BLOCK
         BEGIN BLOCK XLXI_10 cb8cle
             PIN C clk
-            PIN CE XLXN_22(0:0)
+            PIN CE XLXN_64
             PIN CLR rst
             PIN D(7:0) XLXN_16(7:0)
             PIN L XLXN_52
@@ -281,7 +255,7 @@ BEGIN SCHEMATIC
             PIN CE XLXN_24
             PIN CLR rst
             PIN CEO
-            PIN Q(7:0) XLXN_32(7:0)
+            PIN Q(7:0) raddr(7:0)
             PIN TC
         END BLOCK
         BEGIN BLOCK XLXI_12 fdc
@@ -301,9 +275,9 @@ BEGIN SCHEMATIC
         BEGIN BLOCK XLXI_19 dual_port_mem_72bit
             PIN addra(7:0) waddr(7:0)
             PIN dina(71:0) in_fifo0(71:0)
-            PIN wea(0:0) XLXN_22(0:0)
+            PIN wea XLXN_64
             PIN clka clk
-            PIN addrb(7:0) XLXN_32(7:0)
+            PIN addrb(7:0) raddr(7:0)
             PIN clkb clk
             PIN doutb(71:0) out_fifo(71:0)
         END BLOCK
@@ -370,19 +344,24 @@ BEGIN SCHEMATIC
         END BRANCH
         IOMARKER 1568 1152 fiforead R180 28
         BEGIN BRANCH waddr(7:0)
-            WIRE 288 976 432 976
             WIRE 288 976 288 1424
             WIRE 288 1424 1168 1424
             WIRE 1168 1424 1184 1424
+            WIRE 288 976 368 976
+            WIRE 368 976 432 976
             WIRE 1168 656 1168 1424
             WIRE 1168 656 2400 656
             WIRE 2400 656 2400 816
             WIRE 2400 656 2608 656
             WIRE 2288 816 2368 816
+            WIRE 2368 816 2368 816
             WIRE 2368 816 2400 816
             WIRE 2608 592 2608 656
-            WIRE 2608 592 2704 592
-            BEGIN DISPLAY 2373 816 ATTR Name
+            WIRE 2608 592 2768 592
+            BEGIN DISPLAY 370 976 ATTR Name
+                ALIGNMENT SOFT-BCENTER
+            END DISPLAY
+            BEGIN DISPLAY 2372 816 ATTR Name
                 ALIGNMENT SOFT-BCENTER
             END DISPLAY
         END BRANCH
@@ -405,17 +384,6 @@ BEGIN SCHEMATIC
             WIRE 992 2192 1200 2192
             WIRE 992 816 1904 816
             WIRE 992 816 992 976
-        END BRANCH
-        BEGIN BRANCH XLXN_32(7:0)
-            WIRE 1168 1616 1184 1616
-            WIRE 1168 1616 1168 1808
-            WIRE 1168 1808 2576 1808
-            WIRE 1168 1808 1168 2000
-            WIRE 1168 2000 1200 2000
-            WIRE 2400 1424 2576 1424
-            WIRE 2576 1424 2576 1808
-            WIRE 2576 848 2704 848
-            WIRE 2576 848 2576 1424
         END BRANCH
         IOMARKER 1744 1312 rst R180 28
         BEGIN BRANCH rst
@@ -457,25 +425,15 @@ BEGIN SCHEMATIC
             WIRE 912 944 912 2032
             WIRE 912 944 1904 944
         END BRANCH
-        BEGIN INSTANCE XLXI_19 2704 512 R0
-        END INSTANCE
         BEGIN BRANCH in_fifo0(71:0)
-            WIRE 2480 144 2576 144
-            WIRE 2576 144 2592 144
+            WIRE 2480 144 2560 144
+            WIRE 2560 144 2560 144
+            WIRE 2560 144 2592 144
             WIRE 2592 144 2592 624
-            WIRE 2592 624 2704 624
-            BEGIN DISPLAY 2569 144 ATTR Name
+            WIRE 2592 624 2768 624
+            BEGIN DISPLAY 2568 144 ATTR Name
                 ALIGNMENT SOFT-BCENTER
             END DISPLAY
-        END BRANCH
-        BEGIN BRANCH XLXN_22(0:0)
-            WIRE 1728 160 1808 160
-            WIRE 1808 160 1808 544
-            WIRE 1808 544 1808 1008
-            WIRE 1808 1008 1904 1008
-            WIRE 1808 544 2256 544
-            WIRE 2256 544 2256 720
-            WIRE 2256 720 2704 720
         END BRANCH
         BEGIN BRANCH clk
             WIRE 352 2160 400 2160
@@ -505,14 +463,57 @@ BEGIN SCHEMATIC
             WIRE 1840 1632 1840 2080
             WIRE 1840 2080 2000 2080
             WIRE 1840 1632 1888 1632
-            WIRE 2592 784 2704 784
-            WIRE 2592 784 2592 1040
+            WIRE 2592 784 2768 784
+            WIRE 2592 784 2592 848
+            WIRE 2592 848 2592 1040
             WIRE 2592 1040 2704 1040
             WIRE 2592 1040 2592 1184
+            WIRE 2704 1008 2768 1008
+            WIRE 2704 1008 2704 1040
         END BRANCH
         BEGIN BRANCH out_fifo(71:0)
+            WIRE 3056 816 3280 816
+            WIRE 3280 816 3280 848
             WIRE 3280 848 3312 848
         END BRANCH
         IOMARKER 3312 848 out_fifo(71:0) R0 28
+        BEGIN BRANCH XLXN_64
+            WIRE 1728 160 1808 160
+            WIRE 1808 160 1808 560
+            WIRE 1808 560 1808 1008
+            WIRE 1808 1008 1904 1008
+            WIRE 1808 560 2672 560
+            WIRE 2672 560 2672 656
+            WIRE 2672 656 2768 656
+        END BRANCH
+        BEGIN BRANCH raddr(7:0)
+            WIRE 1168 1616 1184 1616
+            WIRE 1168 1616 1168 1808
+            WIRE 1168 1808 2576 1808
+            WIRE 1168 1808 1168 2000
+            WIRE 1168 2000 1200 2000
+            WIRE 2400 1424 2480 1424
+            WIRE 2480 1424 2576 1424
+            WIRE 2576 1424 2576 1808
+            WIRE 2576 848 2576 1424
+            WIRE 2576 848 2624 848
+            WIRE 2624 848 2704 848
+            WIRE 2704 816 2768 816
+            WIRE 2704 816 2704 848
+            BEGIN DISPLAY 1168 1616 ATTR Name
+                ALIGNMENT SOFT-BCENTER
+            END DISPLAY
+            BEGIN DISPLAY 1168 2000 ATTR Name
+                ALIGNMENT SOFT-TCENTER
+            END DISPLAY
+            BEGIN DISPLAY 2480 1424 ATTR Name
+                ALIGNMENT SOFT-BCENTER
+            END DISPLAY
+            BEGIN DISPLAY 2620 848 ATTR Name
+                ALIGNMENT SOFT-BCENTER
+            END DISPLAY
+        END BRANCH
+        BEGIN INSTANCE XLXI_19 2768 544 R0
+        END INSTANCE
     END SHEET
 END SCHEMATIC

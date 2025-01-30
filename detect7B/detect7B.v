@@ -7,13 +7,13 @@
 // \   \   \/     Version : 10.1
 //  \   \         Application : sch2verilog
 //  /   /         Filename : detect7B.vf
-// /___/   /\     Timestamp : 01/28/2025 21:37:10
+// /___/   /\     Timestamp : 01/29/2025 22:14:31
 // \   \  /  \ 
 //  \___\/\___\ 
 //
-//Command: C:\Xilinx\10.1\ISE\bin\nt\unwrapped\sch2verilog.exe -intstyle ise -family spartan3a -w "C:/Documents and Settings/student/Lab3/detect7B.sch" detect7B.vf
+//Command: C:\Xilinx\10.1\ISE\bin\nt\unwrapped\sch2verilog.exe -intstyle ise -family virtex2p -w C:/EE533/Lab3/detect7B.sch detect7B.vf
 //Design Name: detect7B
-//Device: spartan3a
+//Device: virtex2p
 //Purpose:
 //    This verilog netlist is translated from an ECS schematic.It can be 
 //    synthesized and simulated, but it should not be modified. 
