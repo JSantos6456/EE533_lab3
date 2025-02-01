@@ -95,6 +95,18 @@
 `define IDS_BLOCK_TAG 1
 `define IDS_REG_ADDR_WIDTH 16
 
+// Define the log2 function
+`define LOG2_FUNC \
+function integer log2(input integer n); \
+   begin \
+      log2 = 0; \
+      while (2**log2 <= n) begin \
+         log2 = log2 + 1; \
+      end \
+   end \
+endfunction
+
+
 module generic_regs
    #( 
       parameter UDP_REG_SRC_WIDTH     = 2,                       // identifies which module started this request
